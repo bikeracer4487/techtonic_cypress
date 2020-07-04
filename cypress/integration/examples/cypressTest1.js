@@ -7,9 +7,9 @@ describe('My First Cypress Test', function() {
     cy.visit("https://demoqa.com/");
 
     // Clicking on the Widget Menu Item
-    cy.get('#menu-top > li:nth-child(3) > a').click();
+    cy.get('#app > div > div > div.home-body > div > div:nth-child(4)').click();
 
     // Verify the number of items present on Widget Tab
-    cy.get('.demo-frame > ul > li').should('have.length',19);
+    cy.get('#app > div > div > div.row > div:nth-child(1) > div > div > div:nth-child(4) > div > ul > li').should('have.length',9);
     })
 })
