@@ -1,6 +1,8 @@
 const { try } = require('cypress/types/bluebird');
 
 const allure = require('@wdio/allure-reporter').default;
+const chai = require('chai');
+const utilities = require('./support/utils/utilities');
 
 exports.config = {
     //
@@ -21,11 +23,11 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/specs/**/*.js'
+        './cypress/integration/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
-        './cypress/*'
+        //
     ],
     //
     // ============
