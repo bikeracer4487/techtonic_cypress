@@ -2,7 +2,7 @@ import allureReporter from '@wdio/allure-reporter'
 
 describe('My Second Test', () => {
     it('Gets, types and asserts', () => {
-        //allureReporter.addStep('Home Page')
+        //allureReporter.addFeature('Home Page')
         cy.visit('https://example.cypress.io')
 
         //allureReporter.addStep('Contains "type" text')

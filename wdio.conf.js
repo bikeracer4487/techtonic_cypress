@@ -1,3 +1,7 @@
+const { try } = require('cypress/types/bluebird');
+
+const allure = require('@wdio/allure-reporter').default;
+
 exports.config = {
     //
     // ====================
@@ -21,7 +25,7 @@ exports.config = {
     ],
     // Patterns to exclude.
     exclude: [
-        // 'path/to/excluded/files'
+        './cypress/*'
     ],
     //
     // ============
@@ -126,8 +130,8 @@ exports.config = {
     // see also: https://webdriver.io/docs/dot-reporter.html
     reporters: [['allure', {
         outputDir: 'allure-results',
-        disableWebdriverStepsReporting: true,
-        disableWebdriverScreenshotsReporting: true,
+        // disableWebdriverStepsReporting: true,
+        // disableWebdriverScreenshotsReporting: true,
     }]],
 
 
@@ -180,8 +184,11 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-    // before: function (capabilities, specs) {
-    // },
+    before: function (capabilities, specs) {
+        global.allure = allure;
+        global.chai = chai;
+        global.utilities = utilities;
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name
@@ -193,13 +200,17 @@ exports.config = {
      * Hook that gets executed before the suite starts
      * @param {Object} suite suite details
      */
-    // beforeSuite: function (suite) {
-    // },
+    beforeSuite: function (suite) {
+        allure.addFeature(suite.name);
+    },
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    // beforeTest: function (test, context) {
-    // },
+    beforeTest: function (test, context) {
+        allure.addEnvironment("BROWSER", browser.capabilities.browserName);
+        allure.addEnvironment("BROWSER_VERSION", browser.capabilities.version);
+        allure.addEnvironment("PLATFORM", browser.capabilities.platform);
+    },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
      * beforeEach in Mocha)
@@ -215,8 +226,16 @@ exports.config = {
     /**
      * Function to be executed after a test (in Mocha/Jasmine).
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+    afterTest: function(test, context, { error, result, duration, passed, retries }) {
+        if (error != undefined){
+            try{
+                //TODO: Fix allure reporting on failure
+                utilities.takeScreenshot(test.title, true)
+            } catch {
+                console.log('>> Capture Screenshot Failed!');
+            }
+        }
+    },
 
 
     /**
