@@ -1,4 +1,21 @@
 describe('My Second Test', () => {
+    before( () => {
+        const allure = Cypress.Allure.reporter.getInterface()
+        const today = new Date()
+        const currentHour = today.getHours()
+        allure.writeExecutorInfo({
+            name: 'Doug Mason',
+            type: 'cypress ui',
+            url: 'https://www.techtonic.com',
+            buildOrder: currentHour,
+            buildName: 'basic',
+            reportName: 'reportName'
+        })
+    })
+
+    afterEach(() => {
+        cy.log('End of step.')
+    })
     it('Gets, types and asserts', () => {
         //allureReporter.addFeature('Home Page')
         cy.allure().step('First Step')
