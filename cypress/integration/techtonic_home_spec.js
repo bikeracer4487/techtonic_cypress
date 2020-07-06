@@ -8,7 +8,7 @@ describe('Techtonic Home Page', () => {
             type: 'cypress ui',
             url: 'https://www.techtonic.com',
             buildOrder: currentHour,
-            buildName: 'basic',
+            buildName: 'First',
             reportName: 'reportName'
         })
     })
