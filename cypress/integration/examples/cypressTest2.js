@@ -1,11 +1,8 @@
-require("mocha-allure-reporter")
-
 describe('My Second Test', () => {
     it('Gets, types and asserts', () => {
         //allureReporter.addFeature('Home Page')
-        allure.createStep("Visit site", () => {
-            cy.visit('https://example.cypress.io')
-        }
+        cy.allure().step('First Step')
+        cy.visit('https://example.cypress.io')
 
         cy.pause()
 
