@@ -1,0 +1,7 @@
+{
+    "env": {
+        "tmsPrefix": "https://url-to-bug-tracking-system/task-",
+        "issuePrefix": "https://url-to-tms/tests/caseId-",
+        "allureResultsPath": "allure-results"
+    }
+}
